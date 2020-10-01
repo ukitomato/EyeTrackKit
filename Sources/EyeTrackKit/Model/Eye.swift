@@ -13,6 +13,7 @@ import ARKit
 // 目情報保持クラス
 public class Eye {
     public var lookAtPosition: CGPoint = CGPoint(x: 0, y: 0)
+    public var lookAtPoint: CGPoint = CGPoint(x: 0, y: 0)
     public var blink: Float = 1.0
     public var node: SCNNode
     public var target: SCNNode
@@ -52,6 +53,7 @@ public class Eye {
         for result in deviceScreenEyeHitTestResults {
             self.lookAtPosition.x = CGFloat(result.localCoordinates.x) / (device.screenSize.width / 2) * device.screenPointSize.width
             self.lookAtPosition.y = CGFloat(result.localCoordinates.y) / (device.screenSize.height / 2) * device.screenPointSize.height + heightCompensation
+            self.lookAtPoint = CGPoint(x: self.lookAtPosition.x + device.screenPointSize.width / 2, y: self.lookAtPosition.y + device.screenPointSize.height / 2)
         }
 
         return self.lookAtPosition

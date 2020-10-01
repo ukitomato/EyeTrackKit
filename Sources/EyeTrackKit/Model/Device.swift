@@ -46,6 +46,5 @@ public class Device {
             return vsNode
         }()
         self.node.addChildNode(self.screenNode)
-
     }
 }

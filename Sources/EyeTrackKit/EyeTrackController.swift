@@ -37,10 +37,23 @@ public class EyeTrackController: ObservableObject {
     /// start to record data
     public func start() -> Void {
         view.startRecord()
+        self.eyeTrack.setStatus(status: .RECORDING)
     }
     
     public func stop() -> Void {
+        self.eyeTrack.setStatus(status: .RECORDED)
+        print("Acquired \(self.eyeTrack.data.count) frames")
         view.stopRecord()
     }
-
+    
+    public func export() -> [EyeTrackInfo] {
+        return self.eyeTrack.data
+    }
+    
+    public func reset() -> Void {
+        self.eyeTrack.frame = 0
+        self.eyeTrack.data.removeAll()
+        self.eyeTrack.setStatus(status: .STANDBY)
+    }
+    
 }

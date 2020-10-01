@@ -28,6 +28,7 @@ public class EyeTrack: ObservableObject {
     @Published public var lookAtPoint: CGPoint = CGPoint(x: 0, y: 0)
     @Published public var device: Device
     @Published public var face: Face
+    @Published public var frame: Int = 0
     
     private var status: Status
     
@@ -70,15 +71,18 @@ public class EyeTrack: ObservableObject {
         case .ERROR: break
         case .STANDBY: break
         case .RECORDING:
-            data.append(EyeTrackInfo(time: Date.init()))
+            data.append(EyeTrackInfo(frame: frame, face: face, device: device, lookAtPoint: lookAtPoint))
+            frame = frame + 1
             break
         case .RECORDED:
-            print("Acquired \(data.count) frames")
             break
-
         }
         
         onUpdate()
+    }
+    
+    public func setStatus(status: Status) {
+        self.status = status
     }
 
     // 視点位置更新
