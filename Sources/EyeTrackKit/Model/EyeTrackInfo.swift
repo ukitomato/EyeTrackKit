@@ -32,7 +32,6 @@ public class EyeTrackInfo{
     public var rightEyeDistance: Float
     public var leftEyeDistance: Float
     
-    public var faceTracking: Bool
     
     public init(frame:Int, face: Face, device: Device, lookAtPoint: CGPoint) {
         self.frame = frame
