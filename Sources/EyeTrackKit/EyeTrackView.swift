@@ -16,7 +16,7 @@ public struct EyeTrackView: UIViewRepresentable {
     public var recorder: RecordAR?
     private var isHidden: Bool
     
-    init(isHidden: Bool = true, eyeTrack: EyeTrack) {
+    public init(isHidden: Bool = true, eyeTrack: EyeTrack) {
         self.isHidden = isHidden
         self.eyeTrack = eyeTrack
         self.recorder = RecordAR(ARSceneKit: sceneView)
@@ -61,11 +61,11 @@ public struct EyeTrackView: UIViewRepresentable {
     }
     
     public class Coordinator: NSObject, ARSCNViewDelegate, ARSessionDelegate {
-        @Binding var view: ARSCNView
-        var eyeTrack: EyeTrack
-        var recorder: RecordAR?
+        @Binding public var view: ARSCNView
+        public var eyeTrack: EyeTrack
+        public var recorder: RecordAR?
         
-        init (view: Binding<ARSCNView>, eyeTrack: EyeTrack, recorder: RecordAR?) {
+        public init (view: Binding<ARSCNView>, eyeTrack: EyeTrack, recorder: RecordAR?) {
             _view = view
             self.eyeTrack = eyeTrack
             self.recorder = recorder

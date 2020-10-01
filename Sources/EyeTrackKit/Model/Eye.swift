@@ -18,7 +18,7 @@ public class Eye {
     public var target: SCNNode
 
 
-    init() {
+    public init() {
         // Node生成
         self.node = {
             let geometry = SCNCone(topRadius: 0.005, bottomRadius: 0, height: 0.1)

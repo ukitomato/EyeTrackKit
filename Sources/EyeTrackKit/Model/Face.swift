@@ -18,7 +18,7 @@ public class Face {
     public var transform: simd_float4x4 = simd_float4x4()
 
 
-    init() {
+    public init() {
         // Node生成
         self.node = SCNNode()
         self.rightEye = Eye()

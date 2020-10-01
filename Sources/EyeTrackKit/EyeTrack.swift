@@ -36,7 +36,7 @@ public class EyeTrack: ObservableObject {
     
     var onUpdate: () -> Void
     
-    init(type: DeviceType, smoothingRange: Int = 1, blinkThreshold: Float = 1.0, onUpdate: @escaping () -> Void = {}) {
+    public init(type: DeviceType, smoothingRange: Int = 1, blinkThreshold: Float = 1.0, onUpdate: @escaping () -> Void = {}) {
         self.device = Device(type: type)
         self.face = Face()
         self.smoothingRange = smoothingRange
@@ -53,7 +53,7 @@ public class EyeTrack: ObservableObject {
     }
 
     // ARFaceAnchorを基に情報を更新
-    func update(anchor: ARFaceAnchor) {
+    public func update(anchor: ARFaceAnchor) {
         // 顔座標更新(眼球座標更新)
         self.face.update(anchor: anchor)
         // 瞬き判定
@@ -82,7 +82,7 @@ public class EyeTrack: ObservableObject {
     }
 
     // 視点位置更新
-    func updateLookAtPosition() {
+    public func updateLookAtPosition() {
         let rightEyeHittingAt = self.face.rightEye.hittingAt(device: device)
         let leftEyeHittingAt = self.face.leftEye.hittingAt(device: device)
         let lookAt = CGPoint(x: (rightEyeHittingAt.x + leftEyeHittingAt.x) / 2, y: -(rightEyeHittingAt.y + leftEyeHittingAt.y) / 2)

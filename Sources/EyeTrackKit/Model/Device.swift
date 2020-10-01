@@ -24,7 +24,7 @@ public class Device {
     public var node: SCNNode
     public var screenNode: SCNNode
 
-    init(type: DeviceType) {
+    public init(type: DeviceType) {
         self.type = type
         switch type {
         case DeviceType.iPhone:
