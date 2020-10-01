@@ -11,11 +11,20 @@
         }
       },
       {
+        "package": "CSV.swift",
+        "repositoryURL": "https://github.com/yaslab/CSV.swift",
+        "state": {
+          "branch": null,
+          "revision": "81d2874c51db364d7e1d71b0d99018a294c87ac1",
+          "version": "2.4.3"
+        }
+      },
+      {
         "package": "EyeTrackKit",
         "repositoryURL": "git@github.com:ukitomato/EyeTrackKit.git",
         "state": {
           "branch": "master",
-          "revision": "4abdba6757ad7657a1ff263536129fa39f00bd57",
+          "revision": "c6bbab1c2b71591d471a52e8099bf5333d795df4",
           "version": null
         }
       },

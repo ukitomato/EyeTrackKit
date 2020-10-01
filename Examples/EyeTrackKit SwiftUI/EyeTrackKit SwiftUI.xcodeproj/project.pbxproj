@@ -16,7 +16,8 @@
 		B6A62C232525B48F00579AFB /* EyeTrackKit in Frameworks */ = {isa = PBXBuildFile; productRef = B6A62C222525B48F00579AFB /* EyeTrackKit */; };
 		B6A62C272525B4CA00579AFB /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = B6A62C262525B4CA00579AFB /* Resolver */; };
 		B6A62C2A2525B4E600579AFB /* AppDelegate+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A62C292525B4E600579AFB /* AppDelegate+Injection.swift */; };
-		B6A62C2D2525B65600579AFB /* PointingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A62C2C2525B65600579AFB /* PointingView.swift */; };
+		B6A62C312525DD5100579AFB /* CSV in Frameworks */ = {isa = PBXBuildFile; productRef = B6A62C302525DD5100579AFB /* CSV */; };
+		B6A62C352525DF2800579AFB /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A62C342525DF2800579AFB /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +30,7 @@
 		B6A62C182525B31E00579AFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6A62C1A2525B31E00579AFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6A62C292525B4E600579AFB /* AppDelegate+Injection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swift"; sourceTree = "<group>"; };
-		B6A62C2C2525B65600579AFB /* PointingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointingView.swift; sourceTree = "<group>"; };
+		B6A62C342525DF2800579AFB /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6A62C312525DD5100579AFB /* CSV in Frameworks */,
 				B6A62C272525B4CA00579AFB /* Resolver in Frameworks */,
 				B6A62C232525B48F00579AFB /* EyeTrackKit in Frameworks */,
 			);
@@ -72,7 +74,7 @@
 				B6A62C172525B31E00579AFB /* LaunchScreen.storyboard */,
 				B6A62C1A2525B31E00579AFB /* Info.plist */,
 				B6A62C142525B31E00579AFB /* Preview Content */,
-				B6A62C2C2525B65600579AFB /* PointingView.swift */,
+				B6A62C342525DF2800579AFB /* DataController.swift */,
 			);
 			path = "EyeTrackKit SwiftUI";
 			sourceTree = "<group>";
@@ -104,6 +106,7 @@
 			packageProductDependencies = (
 				B6A62C222525B48F00579AFB /* EyeTrackKit */,
 				B6A62C262525B4CA00579AFB /* Resolver */,
+				B6A62C302525DD5100579AFB /* CSV */,
 			);
 			productName = "EyeTrackKit SwiftUI";
 			productReference = B6A62C092525B31C00579AFB /* EyeTrackKit SwiftUI.app */;
@@ -135,6 +138,7 @@
 			packageReferences = (
 				B6A62C212525B48F00579AFB /* XCRemoteSwiftPackageReference "EyeTrackKit" */,
 				B6A62C252525B4CA00579AFB /* XCRemoteSwiftPackageReference "Resolver" */,
+				B6A62C2F2525DD5100579AFB /* XCRemoteSwiftPackageReference "CSV" */,
 			);
 			productRefGroup = B6A62C0A2525B31C00579AFB /* Products */;
 			projectDirPath = "";
@@ -163,11 +167,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6A62C352525DF2800579AFB /* DataController.swift in Sources */,
 				B6A62C2A2525B4E600579AFB /* AppDelegate+Injection.swift in Sources */,
 				B6A62C0D2525B31C00579AFB /* AppDelegate.swift in Sources */,
 				B6A62C0F2525B31C00579AFB /* SceneDelegate.swift in Sources */,
 				B6A62C112525B31C00579AFB /* ContentView.swift in Sources */,
-				B6A62C2D2525B65600579AFB /* PointingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +387,14 @@
 				minimumVersion = 1.1.4;
 			};
 		};
+		B6A62C2F2525DD5100579AFB /* XCRemoteSwiftPackageReference "CSV" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yaslab/CSV.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -395,6 +407,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B6A62C252525B4CA00579AFB /* XCRemoteSwiftPackageReference "Resolver" */;
 			productName = Resolver;
+		};
+		B6A62C302525DD5100579AFB /* CSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6A62C2F2525DD5100579AFB /* XCRemoteSwiftPackageReference "CSV" */;
+			productName = CSV;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
