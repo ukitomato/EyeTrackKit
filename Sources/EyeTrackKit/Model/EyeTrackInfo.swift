@@ -1,5 +1,5 @@
 //
-//  EyeTrackInfo.swift
+//  EyeTrackself.swift
 //  
 //
 //  Created by Yuki Yamato on 2020/10/01.
@@ -8,7 +8,9 @@
 import Foundation
 import ARKit
 
-public class EyeTrackInfo{
+public class EyeTrackself{
+    private var formatter = DateFormatter()
+
     public static let CSV_COLUMNS = ["timestamp", "frame",
                                  "faceRotaion-x", "faceRotaion-y", "faceRotaion-z", "faceRotaion-w",
                                  "facePosition-x", "facePosition-y", "facePosition-z",
@@ -68,30 +70,36 @@ public class EyeTrackInfo{
         
         self.rightEyeDistance = face.rightEye.getDistanceToDevice()
         self.leftEyeDistance = face.leftEye.getDistanceToDevice()
+        
+        formatter.dateFormat = "yyyyMMddHHmmssSSSSS"
     }
     
-    public func toCSV() -> String {
-        let detail = [dateToString(date: info.timestamp), String(info.frame)]
+    public func toCSV() -> [String] {
+        let detail = [dateToString(date: self.timestamp), String(self.frame)]
         let worldPosition = [
-            String(info.faceRotaion.x), String(info.faceRotaion.y), String(info.faceRotaion.z), String(info.faceRotaion.w),
-            String(info.facePosition.x), String(info.facePosition.y), String(info.facePosition.z),
-            String(info.devicePosition.x), String(info.devicePosition.y), String(info.devicePosition.z),
-            String(info.rightEyePotision.x), String(info.rightEyePotision.y), String(info.rightEyePotision.z),
-            String(info.leftEyePotision.x), String(info.leftEyePotision.y), String(info.leftEyePotision.z)]
+            String(self.faceRotaion.x), String(self.faceRotaion.y), String(self.faceRotaion.z), String(self.faceRotaion.w),
+            String(self.facePosition.x), String(self.facePosition.y), String(self.facePosition.z),
+            String(self.devicePosition.x), String(self.devicePosition.y), String(self.devicePosition.z),
+            String(self.rightEyePotision.x), String(self.rightEyePotision.y), String(self.rightEyePotision.z),
+            String(self.leftEyePotision.x), String(self.leftEyePotision.y), String(self.leftEyePotision.z)]
         let lookAtPosition = [
-           String(info.rightEyeLookAtPosition.x), String(info.rightEyeLookAtPosition.y), String(info.rightEyeLookAtPosition.z),
-           String(info.leftEyeLookAtPosition.x), String(info.leftEyeLookAtPosition.y), String(info.leftEyeLookAtPosition.z)]
+           String(self.rightEyeLookAtPosition.x), String(self.rightEyeLookAtPosition.y), String(self.rightEyeLookAtPosition.z),
+           String(self.leftEyeLookAtPosition.x), String(self.leftEyeLookAtPosition.y), String(self.leftEyeLookAtPosition.z)]
         let lookAtPoint = [
-            String(format: "%.4F", Float(info.rightEyeLookAtPoint.x)), String(format: "%.4F", Float(info.rightEyeLookAtPoint.y)),
-            String(format: "%.4F", Float(info.leftEyeLookAtPoint.x)), String(format: "%.4F", Float(info.leftEyeLookAtPoint.y)),
-            String(format: "%.4F", Float(info.centerEyeLookAtPoint.x)), String(format: "%.4F", Float(info.centerEyeLookAtPoint.y))]
-        let eyeInfo = [
-            String(info.rightEyeBlink), String(info.leftEyeBlink),
-            String(info.rightEyeDistance), String(info.leftEyeDistance)]
+            String(format: "%.4F", Float(self.rightEyeLookAtPoint.x)), String(format: "%.4F", Float(self.rightEyeLookAtPoint.y)),
+            String(format: "%.4F", Float(self.leftEyeLookAtPoint.x)), String(format: "%.4F", Float(self.leftEyeLookAtPoint.y)),
+            String(format: "%.4F", Float(self.centerEyeLookAtPoint.x)), String(format: "%.4F", Float(self.centerEyeLookAtPoint.y))]
+        let eyeself = [
+            String(self.rightEyeBlink), String(self.leftEyeBlink),
+            String(self.rightEyeDistance), String(self.leftEyeDistance)]
         var row = detail + worldPosition
         row = row + lookAtPosition
         row = row + lookAtPoint
-        row = row + eyeInfo
+        row = row + eyeself
         return row
+    }
+    
+    public func dateToString(date:Date) -> String {
+        return formatter.string(from: Date())
     }
 }
