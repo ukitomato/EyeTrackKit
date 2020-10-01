@@ -10,19 +10,19 @@ import UIKit
 import SceneKit
 import ARKit
 
-enum DeviceType {
+public enum DeviceType {
     case iPhone
     case iPad
 }
 
 // デバイス情報保持クラス
-class Device {
-    let type: DeviceType
-    let screenSize: CGSize
-    let screenPointSize: CGSize
+public class Device {
+    public let type: DeviceType
+    public let screenSize: CGSize
+    public let screenPointSize: CGSize
 
-    var node: SCNNode
-    var screenNode: SCNNode
+    public var node: SCNNode
+    public var screenNode: SCNNode
 
     init(type: DeviceType) {
         self.type = type

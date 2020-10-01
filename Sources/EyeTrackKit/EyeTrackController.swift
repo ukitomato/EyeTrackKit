@@ -12,7 +12,7 @@ import Combine
 
 
 @available(iOS 13.0, *)
-class EyeTrackController: ObservableObject {
+public class EyeTrackController: ObservableObject {
     @Published var eyeTrack: EyeTrack = EyeTrack(type: .iPhone, smoothingRange: 10, blinkThreshold: 0.4)
     private var _view: EyeTrackView?
     
@@ -34,11 +34,11 @@ class EyeTrackController: ObservableObject {
     }
     
     /// start to record data
-    func start() -> Void {
+    public func start() -> Void {
         view.startRecord()
     }
     
-    func stop() -> Void {
+    public func stop() -> Void {
         view.stopRecord()
     }
 

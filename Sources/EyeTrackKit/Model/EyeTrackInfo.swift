@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct EyeTrackInfo{
-    var time: Date
+public struct EyeTrackInfo{
+    public var time: Date
 }

@@ -11,11 +11,11 @@ import SceneKit
 import ARKit
 
 // 顔情報保持クラス
-class Face {
-    let node: SCNNode
-    let rightEye: Eye
-    let leftEye: Eye
-    var transform: simd_float4x4 = simd_float4x4()
+public class Face {
+    public let node: SCNNode
+    public let rightEye: Eye
+    public let leftEye: Eye
+    public var transform: simd_float4x4 = simd_float4x4()
 
 
     init() {
@@ -27,7 +27,7 @@ class Face {
         self.node.addChildNode(self.rightEye.node)
     }
 
-    func update(anchor: ARFaceAnchor) {
+    public func update(anchor: ARFaceAnchor) {
         // 座標更新
         self.transform = anchor.transform
         self.leftEye.node.simdTransform = anchor.leftEyeTransform
@@ -38,7 +38,7 @@ class Face {
     }
 
     // デバイスとの距離を取得
-    func getDistanceToDevice() -> Float {
+    public func getDistanceToDevice() -> Float {
         // Average distance from two eyes
         (self.leftEye.getDistanceToDevice() + self.rightEye.getDistanceToDevice()) / 2
     }

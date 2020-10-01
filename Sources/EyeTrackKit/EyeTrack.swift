@@ -11,7 +11,7 @@ import UIKit
 import SceneKit
 import ARKit
 
-enum Status {
+public enum Status {
     case UNINITIALIZED
     case UNREGISTERED
     case ERROR
@@ -21,13 +21,13 @@ enum Status {
 }
 
 @available(iOS 13.0, *)
-class EyeTrack: ObservableObject {
+public class EyeTrack: ObservableObject {
     private var bufferLookAtPosition: [CGPoint] = []
-    @Published var data: [EyeTrackInfo] = []
-    @Published var lookAtPosition: CGPoint = CGPoint(x: 0, y: 0)
-    @Published var lookAtPoint: CGPoint = CGPoint(x: 0, y: 0)
-    @Published var device: Device
-    @Published var face: Face
+    @Published public var data: [EyeTrackInfo] = []
+    @Published public var lookAtPosition: CGPoint = CGPoint(x: 0, y: 0)
+    @Published public var lookAtPoint: CGPoint = CGPoint(x: 0, y: 0)
+    @Published public var device: Device
+    @Published public var face: Face
     
     private var status: Status
     
@@ -46,7 +46,7 @@ class EyeTrack: ObservableObject {
     }
 
     // SceneViewと紐つける
-    func registerSceneView(sceneView: ARSCNView) {
+    public func registerSceneView(sceneView: ARSCNView) {
         sceneView.scene.rootNode.addChildNode(self.face.node)
         sceneView.scene.rootNode.addChildNode(self.device.node)
         self.status = Status.STANDBY

@@ -10,10 +10,10 @@ import ARKit
 import SceneKit
 import ARVideoKit
 
-struct EyeTrackView: UIViewRepresentable {
-    @State var sceneView: ARSCNView = ARSCNView(frame: .zero)
-    var eyeTrack: EyeTrack
-    var recorder: RecordAR?
+public struct EyeTrackView: UIViewRepresentable {
+    @State public var sceneView: ARSCNView = ARSCNView(frame: .zero)
+    public var eyeTrack: EyeTrack
+    public var recorder: RecordAR?
     private var isHidden: Bool
     
     init(isHidden: Bool = true, eyeTrack: EyeTrack) {
@@ -23,7 +23,7 @@ struct EyeTrackView: UIViewRepresentable {
     }
 
     
-    func makeUIView(context: Context) -> ARSCNView {
+    public func makeUIView(context: Context) -> ARSCNView {
         // Set the view's delegate
         self.sceneView.delegate = context.coordinator
         self.sceneView.session.delegate = context.coordinator
@@ -43,24 +43,24 @@ struct EyeTrackView: UIViewRepresentable {
         return sceneView
     }
     
-    func updateUIView(_ uiView: ARSCNView, context: Context) {
+    public func updateUIView(_ uiView: ARSCNView, context: Context) {
     }
     
     /// Start to record SceneView content
-    func startRecord() {
+    public func startRecord() {
         recorder?.record()
     }
 
     /// Stop to record and Save the recorded video
-    func stopRecord() {
+    public func stopRecord() {
         recorder?.stopAndExport()
     }
     
-    func makeCoordinator() -> Coordinator {
+    public func makeCoordinator() -> Coordinator {
         return Coordinator(view: $sceneView, eyeTrack: self.eyeTrack, recorder: self.recorder)
     }
     
-    class Coordinator: NSObject, ARSCNViewDelegate, ARSessionDelegate {
+    public class Coordinator: NSObject, ARSCNViewDelegate, ARSessionDelegate {
         @Binding var view: ARSCNView
         var eyeTrack: EyeTrack
         var recorder: RecordAR?
@@ -81,7 +81,7 @@ struct EyeTrackView: UIViewRepresentable {
             view.session.pause()
         }
         
-        func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        public func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
             eyeTrack.face.node.transform = node.transform
             guard let faceAnchor = anchor as? ARFaceAnchor else {
                 return
@@ -89,7 +89,7 @@ struct EyeTrackView: UIViewRepresentable {
             updateAnchor(withFaceAnchor: faceAnchor)
         }
 
-        func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        public func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
             guard let sceneTransformInfo = view.pointOfView?.transform else {
                 return
             }
@@ -97,7 +97,7 @@ struct EyeTrackView: UIViewRepresentable {
             eyeTrack.device.node.transform = sceneTransformInfo
         }
 
-        func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        public func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
             eyeTrack.face.node.transform = node.transform
             guard let faceAnchor = anchor as? ARFaceAnchor else {
                 return
@@ -105,7 +105,7 @@ struct EyeTrackView: UIViewRepresentable {
             updateAnchor(withFaceAnchor: faceAnchor)
         }
 
-        func updateAnchor(withFaceAnchor anchor: ARFaceAnchor) {
+        public func updateAnchor(withFaceAnchor anchor: ARFaceAnchor) {
             DispatchQueue.main.async {
                 self.eyeTrack.update(anchor: anchor)
             }

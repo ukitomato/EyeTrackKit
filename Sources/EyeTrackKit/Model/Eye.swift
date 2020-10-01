@@ -11,11 +11,11 @@ import SceneKit
 import ARKit
 
 // 目情報保持クラス
-class Eye {
-    var lookAtPosition: CGPoint = CGPoint(x: 0, y: 0)
-    var blink: Float = 1.0
-    var node: SCNNode
-    var target: SCNNode
+public class Eye {
+    public var lookAtPosition: CGPoint = CGPoint(x: 0, y: 0)
+    public var blink: Float = 1.0
+    public var node: SCNNode
+    public var target: SCNNode
 
 
     init() {
@@ -40,12 +40,12 @@ class Eye {
     }
 
     // Deviceとの距離を取得
-    func getDistanceToDevice() -> Float {
+    public func getDistanceToDevice() -> Float {
         (self.node.worldPosition - SCNVector3Zero).length()
     }
 
     // [目と視点を結ぶ直線]と[デバイスのスクリーン平面]の交点を取得
-    func hittingAt(device: Device) -> CGPoint {
+    public func hittingAt(device: Device) -> CGPoint {
         let heightCompensation: CGFloat = 312
 
         let deviceScreenEyeHitTestResults = device.node.hitTestWithSegment(from: self.target.worldPosition, to: self.node.worldPosition, options: nil)
