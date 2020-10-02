@@ -16,10 +16,12 @@ public class EyeTrackController: ObservableObject {
     @Published public var eyeTrack: EyeTrack
     private var _view: EyeTrackView?
     private var isVideoRecording:Bool = true
+    private var isHidden:Bool
     var anyCancellable: AnyCancellable? = nil
     
-    public init(type: DeviceType, smoothingRange: Int, blinkThreshold: Float) {
+    public init(type: DeviceType, smoothingRange: Int, blinkThreshold: Float, isHidden: Bool=true) {
         eyeTrack = EyeTrack(type: .iPhone, smoothingRange: 10, blinkThreshold: 0.4)
+        self.isHidden = isHidden
         anyCancellable = eyeTrack.objectWillChange.sink { [weak self] (_) in
             self?.objectWillChange.send()
         }
@@ -28,7 +30,7 @@ public class EyeTrackController: ObservableObject {
     public var view: EyeTrackView {
         get {
             if self._view == nil {
-                self._view = EyeTrackView(isHidden: false, eyeTrack: eyeTrack)
+                self._view = EyeTrackView(isHidden: isHidden, eyeTrack: eyeTrack)
             }
             return self._view!
         }
