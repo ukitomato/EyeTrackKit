@@ -4,8 +4,12 @@ EyeTrackKit
 
 ## Key Features
 - Record eye tracking info
+    - face position & rotation
+    - eyes position
+    - lookAtPosition in World
     - lookAtPoint on device screen
-    - Blink
+    - blink
+    - distance
 
 ## Example Projects
 To try the example project, simply clone this repository and open the `Examples` folder 
