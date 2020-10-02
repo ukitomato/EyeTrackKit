@@ -51,9 +51,17 @@ public struct EyeTrackView: UIViewRepresentable {
         recorder?.record()
     }
 
-    /// Stop to record and Save the recorded video
-    public func stopRecord() {
-        recorder?.stopAndExport()
+    /// Stop to record and Save the recorded video to Photo Library
+    public func stopRecord(finished: @escaping (URL)->Void={_ in }, isExport:Bool=false){
+        if isExport {
+            recorder?.stopAndExport()
+        } else {
+            recorder?.stop() { path in
+                //use the file path to export or preview inside your application
+                print("Video File Path: \(path)")
+                finished(path)
+             }
+        }
     }
     
     public func makeCoordinator() -> Coordinator {

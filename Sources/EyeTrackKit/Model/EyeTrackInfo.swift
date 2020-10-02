@@ -86,9 +86,9 @@ public class EyeTrackInfo{
            String(self.rightEyeLookAtPosition.x), String(self.rightEyeLookAtPosition.y), String(self.rightEyeLookAtPosition.z),
            String(self.leftEyeLookAtPosition.x), String(self.leftEyeLookAtPosition.y), String(self.leftEyeLookAtPosition.z)]
         let lookAtPoint = [
-            String(format: "%.4F", Float(self.rightEyeLookAtPoint.x)), String(format: "%.4F", Float(self.rightEyeLookAtPoint.y)),
-            String(format: "%.4F", Float(self.leftEyeLookAtPoint.x)), String(format: "%.4F", Float(self.leftEyeLookAtPoint.y)),
-            String(format: "%.4F", Float(self.centerEyeLookAtPoint.x)), String(format: "%.4F", Float(self.centerEyeLookAtPoint.y))]
+            String(format: "%.8F", Float(self.rightEyeLookAtPoint.x)), String(format: "%.8F", Float(self.rightEyeLookAtPoint.y)),
+            String(format: "%.8F", Float(self.leftEyeLookAtPoint.x)), String(format: "%.8F", Float(self.leftEyeLookAtPoint.y)),
+            String(format: "%.8F", Float(self.centerEyeLookAtPoint.x)), String(format: "%.8F", Float(self.centerEyeLookAtPoint.y))]
         let eyeself = [
             String(self.rightEyeBlink), String(self.leftEyeBlink),
             String(self.rightEyeDistance), String(self.leftEyeDistance)]

@@ -19,13 +19,12 @@ public class Eye {
     public var target: SCNNode
 
 
-    public init() {
+    public init(isShowRayHint: Bool=false) {
         // Node生成
         self.node = {
             let geometry = SCNCone(topRadius: 0.005, bottomRadius: 0, height: 0.1)
             geometry.radialSegmentCount = 3
-            geometry.firstMaterial?.diffuse.contents = UIColor.red
-
+            geometry.firstMaterial?.diffuse.contents = isShowRayHint ? UIColor.red : UIColor.clear
             let eyeNode = SCNNode()
             eyeNode.geometry = geometry
             eyeNode.eulerAngles.x = -.pi / 2

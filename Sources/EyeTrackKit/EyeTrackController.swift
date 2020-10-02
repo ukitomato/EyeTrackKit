@@ -15,7 +15,7 @@ import Combine
 public class EyeTrackController: ObservableObject {
     @Published public var eyeTrack: EyeTrack
     private var _view: EyeTrackView?
-    
+    private var isVideoRecording:Bool = true
     var anyCancellable: AnyCancellable? = nil
     
     public init(type: DeviceType, smoothingRange: Int, blinkThreshold: Float) {
@@ -35,19 +35,21 @@ public class EyeTrackController: ObservableObject {
     }
     
     /// start to record data
-    public func start() -> Void {
-        view.startRecord()
+    public func start(videoRecording:Bool=true) -> Void {
+        isVideoRecording = videoRecording
+        if isVideoRecording {
+            view.startRecord()
+        }
         self.eyeTrack.setStatus(status: .RECORDING)
     }
     
-    public func stop() -> Void {
+    public func stop(finished: @escaping (URL) -> Void={_ in }, isExport: Bool=false) -> Void {
         self.eyeTrack.setStatus(status: .RECORDED)
         print("Acquired \(self.eyeTrack.data.count) frames")
-        view.stopRecord()
-    }
-    
-    public func export() -> [EyeTrackInfo] {
-        return self.eyeTrack.data
+        if isVideoRecording {
+            view.stopRecord(finished: finished, isExport: isExport)
+        }
+        
     }
     
     public func reset() -> Void {
@@ -56,4 +58,9 @@ public class EyeTrackController: ObservableObject {
         self.eyeTrack.setStatus(status: .STANDBY)
     }
     
+    public var data: [EyeTrackInfo] {
+        return self.eyeTrack.data
+    }
+    
+
 }
