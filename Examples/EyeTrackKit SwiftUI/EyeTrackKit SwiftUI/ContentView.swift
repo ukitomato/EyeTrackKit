@@ -28,8 +28,9 @@ struct ContentView: View {
                 Text("Start")
             }
             Button(action: {
-                eyeTrackController.stop()
-                dataController.export(name:"test.csv", data: eyeTrackController.eyeTrack.data)
+//                eyeTrackController.stop(finished: {_ in}, isExport: true) // export video to Photo Library
+                eyeTrackController.stop(finished: { path in print("Video File Path: \(path)")}, isExport: false) // export video to Documents folder
+                dataController.export(name:"test01.csv", data: eyeTrackController.data)
             }) {
                 Text("Stop")
             }

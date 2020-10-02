@@ -58,7 +58,6 @@ public struct EyeTrackView: UIViewRepresentable {
         } else {
             recorder?.stop() { path in
                 //use the file path to export or preview inside your application
-                print("Video File Path: \(path)")
                 finished(path)
              }
         }
