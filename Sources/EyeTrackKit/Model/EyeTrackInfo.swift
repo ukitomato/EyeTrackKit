@@ -8,7 +8,7 @@
 import Foundation
 import ARKit
 
-public class EyeTrackself{
+public class EyeTrackInfo{
     private var formatter = DateFormatter()
 
     public static let CSV_COLUMNS = ["timestamp", "frame",
@@ -74,7 +74,7 @@ public class EyeTrackself{
         formatter.dateFormat = "yyyyMMddHHmmssSSSSS"
     }
     
-    public func toCSV() -> [String] {
+    public var toCSV: [String] {
         let detail = [dateToString(date: self.timestamp), String(self.frame)]
         let worldPosition = [
             String(self.faceRotaion.x), String(self.faceRotaion.y), String(self.faceRotaion.z), String(self.faceRotaion.w),
