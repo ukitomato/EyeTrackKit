@@ -3,13 +3,14 @@ EyeTrackKit
 - An iOS Framework that enables developers to use eye track information with ARKit content.
 
 ## Key Features
-- Record eye tracking info
+- Acquire eye tracking info
     - face position & rotation
     - eyes position
     - lookAtPosition in World
     - lookAtPoint on device screen
     - blink
     - distance
+- Record video while acquiring data
 
 ## Example Projects
 To try the example project, simply clone this repository and open the `Examples` folder 
