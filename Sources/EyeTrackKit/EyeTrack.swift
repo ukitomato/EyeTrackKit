@@ -1,6 +1,6 @@
 //
 //  EyeTrack.swift
-//  
+//
 //
 //  Created by Yuki Yamato on 2020/10/01.
 //
@@ -29,15 +29,16 @@ public class EyeTrack: ObservableObject {
     @Published public var device: Device
     @Published public var face: Face
     @Published public var frame: Int = 0
-    
+    @Published public var info: EyeTrackInfo? = nil
+
     private var status: Status
-    
+
     var blinkThreshold: Float
     var smoothingRange: Int
-    
+
     var onUpdate: () -> Void
-    
-    public init(type: DeviceType, smoothingRange: Int = 1, blinkThreshold: Float = 1.0, onUpdate: @escaping () -> Void = {}) {
+
+    public init(type: DeviceType, smoothingRange: Int = 1, blinkThreshold: Float = 1.0, onUpdate: @escaping () -> Void = { }) {
         self.device = Device(type: type)
         self.face = Face()
         self.smoothingRange = smoothingRange
@@ -63,7 +64,7 @@ public class EyeTrack: ObservableObject {
         } else {
             updateLookAtPosition()
         }
-        
+        info = EyeTrackInfo(frame: frame, face: face, device: device, lookAtPoint: lookAtPoint)
         // Save data
         switch status {
         case .UNINITIALIZED: break
@@ -71,16 +72,16 @@ public class EyeTrack: ObservableObject {
         case .ERROR: break
         case .STANDBY: break
         case .RECORDING:
-            data.append(EyeTrackInfo(frame: frame, face: face, device: device, lookAtPoint: lookAtPoint))
+            data.append(info!)
             frame = frame + 1
             break
         case .RECORDED:
             break
         }
-        
+
         onUpdate()
     }
-    
+
     public func setStatus(status: Status) {
         self.status = status
     }

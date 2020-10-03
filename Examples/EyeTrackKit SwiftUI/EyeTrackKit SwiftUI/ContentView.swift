@@ -12,7 +12,7 @@ import EyeTrackKit
 struct ContentView: View {
     @ObservedObject var eyeTrackController: EyeTrackController = Resolver.resolve()
     var dataController: DataController = Resolver.resolve()
-    
+
     var body: some View {
         ZStack {
             eyeTrackController.view
@@ -28,9 +28,9 @@ struct ContentView: View {
                 Text("Start")
             }
             Button(action: {
-//                eyeTrackController.stop(finished: {_ in}, isExport: true) // export video to Photo Library
-                eyeTrackController.stop(finished: { path in print("Video File Path: \(path)")}, isExport: false) // export video to Documents folder
-                dataController.export(name:"test01.csv", data: eyeTrackController.data)
+                //                eyeTrackController.stop(finished: {_ in}, isExport: true) // export video to Photo Library
+                eyeTrackController.stop(finished: { path in print("Video File Path: \(path)") }, isExport: false) // export video to Documents folder
+                dataController.export(name: "test01.csv", data: eyeTrackController.data)
             }) {
                 Text("Stop")
             }

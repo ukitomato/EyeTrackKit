@@ -23,7 +23,7 @@ public class DataController {
         }
         csv.stream.close()
     }
-    
+
     public func export(name: String, data: [EyeTrackInfo]) -> Void {
         let filePath = DOCUMENT_DIRECTORY_PAYH + "/" + name
         let fileURL = URL(fileURLWithPath: filePath)

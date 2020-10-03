@@ -1,6 +1,6 @@
 //
 //  EyeTrackself.swift
-//  
+//
 //
 //  Created by Yuki Yamato on 2020/10/01.
 //
@@ -8,72 +8,72 @@
 import Foundation
 import ARKit
 
-public class EyeTrackInfo{
+public class EyeTrackInfo {
     private var formatter = DateFormatter()
 
     public static let CSV_COLUMNS = ["timestamp", "frame",
-                                 "faceRotaion-x", "faceRotaion-y", "faceRotaion-z", "faceRotaion-w",
-                                 "facePosition-x", "facePosition-y", "facePosition-z",
-                                 "devicePosition-x", "devicePosition-y", "devicePosition-z",
-                                 "rightEyePotision-x", "rightEyePotision-y", "rightEyePotision-z",
-                                 "leftEyePotision-x", "leftEyePotision-y", "leftEyePotision-z",
-                                 "rightEyeLookAtPosition-x", "rightEyeLookAtPosition-y", "rightEyeLookAtPosition-z",
-                                 "leftEyeLookAtPosition-x", "leftEyeLookAtPosition-y", "leftEyeLookAtPosition-z",
-                                 "rightEyeLookAtPoint-x", "rightEyeLookAtPoint-y",
-                                 "leftEyeLookAtPoint-x", "leftEyeLookAtPoint-y",
-                                 "centerEyeLookAtPoint-x", "centerEyeLookAtPoint-y",
-                                 "rightEyeBlink", "leftEyeBlink",
-                                 "rightEyeDistance", "leftEyeDistance"]
+                                     "faceRotaion-x", "faceRotaion-y", "faceRotaion-z", "faceRotaion-w",
+                                     "facePosition-x", "facePosition-y", "facePosition-z",
+                                     "devicePosition-x", "devicePosition-y", "devicePosition-z",
+                                     "rightEyePotision-x", "rightEyePotision-y", "rightEyePotision-z",
+                                     "leftEyePotision-x", "leftEyePotision-y", "leftEyePotision-z",
+                                     "rightEyeLookAtPosition-x", "rightEyeLookAtPosition-y", "rightEyeLookAtPosition-z",
+                                     "leftEyeLookAtPosition-x", "leftEyeLookAtPosition-y", "leftEyeLookAtPosition-z",
+                                     "rightEyeLookAtPoint-x", "rightEyeLookAtPoint-y",
+                                     "leftEyeLookAtPoint-x", "leftEyeLookAtPoint-y",
+                                     "centerEyeLookAtPoint-x", "centerEyeLookAtPoint-y",
+                                     "rightEyeBlink", "leftEyeBlink",
+                                     "rightEyeDistance", "leftEyeDistance"]
     public var timestamp: Date
     public var frame: Int
-    
+
     public var faceRotaion: SCNVector4
-    
+
     public var facePosition: SCNVector3
     public var devicePosition: SCNVector3
     public var rightEyePotision: SCNVector3
     public var leftEyePotision: SCNVector3
-    
+
     public var rightEyeLookAtPosition: SCNVector3
     public var leftEyeLookAtPosition: SCNVector3
-    
+
     public var rightEyeLookAtPoint: CGPoint
     public var leftEyeLookAtPoint: CGPoint
     public var centerEyeLookAtPoint: CGPoint
-    
+
     public var rightEyeBlink: Float
     public var leftEyeBlink: Float
-    
+
     public var rightEyeDistance: Float
     public var leftEyeDistance: Float
-    
-    
-    public init(frame:Int, face: Face, device: Device, lookAtPoint: CGPoint) {
+
+
+    public init(frame: Int, face: Face, device: Device, lookAtPoint: CGPoint) {
         self.frame = frame
         self.timestamp = Date.init()
-        
+
         self.faceRotaion = face.node.worldOrientation
         self.facePosition = face.node.worldPosition
         self.devicePosition = device.node.worldPosition
         self.rightEyePotision = face.rightEye.node.worldPosition
         self.leftEyePotision = face.leftEye.node.worldPosition
-        
+
         self.rightEyeLookAtPosition = face.rightEye.target.worldPosition
         self.leftEyeLookAtPosition = face.leftEye.target.worldPosition
-        
+
         self.rightEyeLookAtPoint = face.rightEye.lookAtPoint
         self.leftEyeLookAtPoint = face.leftEye.lookAtPoint
         self.centerEyeLookAtPoint = lookAtPoint
-        
+
         self.rightEyeBlink = face.rightEye.blink
         self.leftEyeBlink = face.leftEye.blink
-        
+
         self.rightEyeDistance = face.rightEye.getDistanceToDevice()
         self.leftEyeDistance = face.leftEye.getDistanceToDevice()
-        
+
         formatter.dateFormat = "yyyyMMddHHmmssSSSSS"
     }
-    
+
     public var toCSV: [String] {
         let detail = [dateToString(date: self.timestamp), String(self.frame)]
         let worldPosition = [
@@ -83,8 +83,8 @@ public class EyeTrackInfo{
             String(self.rightEyePotision.x), String(self.rightEyePotision.y), String(self.rightEyePotision.z),
             String(self.leftEyePotision.x), String(self.leftEyePotision.y), String(self.leftEyePotision.z)]
         let lookAtPosition = [
-           String(self.rightEyeLookAtPosition.x), String(self.rightEyeLookAtPosition.y), String(self.rightEyeLookAtPosition.z),
-           String(self.leftEyeLookAtPosition.x), String(self.leftEyeLookAtPosition.y), String(self.leftEyeLookAtPosition.z)]
+            String(self.rightEyeLookAtPosition.x), String(self.rightEyeLookAtPosition.y), String(self.rightEyeLookAtPosition.z),
+            String(self.leftEyeLookAtPosition.x), String(self.leftEyeLookAtPosition.y), String(self.leftEyeLookAtPosition.z)]
         let lookAtPoint = [
             String(format: "%.8F", Float(self.rightEyeLookAtPoint.x)), String(format: "%.8F", Float(self.rightEyeLookAtPoint.y)),
             String(format: "%.8F", Float(self.leftEyeLookAtPoint.x)), String(format: "%.8F", Float(self.leftEyeLookAtPoint.y)),
@@ -98,8 +98,8 @@ public class EyeTrackInfo{
         row = row + eyeself
         return row
     }
-    
-    public func dateToString(date:Date) -> String {
+
+    public func dateToString(date: Date) -> String {
         return formatter.string(from: Date())
     }
 }
