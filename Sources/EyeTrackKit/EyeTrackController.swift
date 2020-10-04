@@ -43,6 +43,14 @@ public class EyeTrackController: ObservableObject {
     public func show() -> Void {
         self._view?.show()
     }
+    
+    public func showRayHint() -> Void {
+        self._view?.showRayHint()
+    }
+    
+    public func hideRayHint() -> Void {
+        self._view?.hideRayHint()
+    }
 
     /// start to record data
     public func start(videoRecording: Bool = true) -> Void {
