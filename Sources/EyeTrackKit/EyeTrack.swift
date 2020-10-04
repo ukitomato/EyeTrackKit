@@ -30,6 +30,7 @@ public class EyeTrack: ObservableObject {
     @Published public var face: Face
     @Published public var frame: Int = 0
     @Published public var info: EyeTrackInfo? = nil
+    @Published public var isShowRayHint: Bool
 
     private var status: Status
     private var sceneView: ARSCNView?
@@ -46,6 +47,7 @@ public class EyeTrack: ObservableObject {
         self.blinkThreshold = blinkThreshold
         self.onUpdate = onUpdate
         self.status = Status.UNREGISTERED
+        self.isShowRayHint = isShowRayHint
     }
 
     // SceneViewと紐つける
@@ -55,24 +57,26 @@ public class EyeTrack: ObservableObject {
         sceneView.scene.rootNode.addChildNode(self.device.node)
         self.status = Status.STANDBY
     }
-    
+
     public func showRayHint() {
         self.status = Status.UNREGISTERED
+        self.isShowRayHint = true
         let old_face = self.face.node
         self.face = Face(isShowRayHint: true)
         self.sceneView?.scene.rootNode.replaceChildNode(old_face, with: self.face.node)
         self.status = Status.STANDBY
     }
-    
+
     public func hideRayHint() {
         self.status = Status.UNREGISTERED
+        self.isShowRayHint = false
         let old_face = self.face.node
         self.face = Face(isShowRayHint: false)
         self.sceneView?.scene.rootNode.replaceChildNode(old_face, with: self.face.node)
         self.status = Status.STANDBY
     }
-    
-    
+
+
     // ARFaceAnchorを基に情報を更新
     public func update(anchor: ARFaceAnchor) {
         // 顔座標更新(眼球座標更新)
