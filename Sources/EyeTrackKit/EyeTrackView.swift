@@ -46,6 +46,14 @@ public struct EyeTrackView: UIViewRepresentable {
     public func updateUIView(_ uiView: ARSCNView, context: Context) {
     }
 
+    public func hide() -> Void {
+        self.sceneView.isHidden = true
+    }
+    
+    public func show() -> Void {
+        self.sceneView.isHidden = false
+    }
+    
     /// Start to record SceneView content
     public func startRecord() {
         recorder?.record()
