@@ -48,21 +48,10 @@ public struct EyeTrackView: UIViewRepresentable {
 
     public func hide() -> Void {
         self.sceneView.isHidden = true
-        self.hideRayHint()
     }
     
     public func show() -> Void {
         self.sceneView.isHidden = false
-    }
-    
-    public func hideRayHint() -> Void {
-        self.eyeTrack.face.leftEye.hideHint()
-        self.eyeTrack.face.rightEye.hideHint()
-    }
-    
-    public func showRayHint() -> Void {
-        self.eyeTrack.face.leftEye.showHint()
-        self.eyeTrack.face.rightEye.showHint()
     }
     
     /// Start to record SceneView content

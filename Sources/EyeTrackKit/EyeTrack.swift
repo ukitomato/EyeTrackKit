@@ -32,15 +32,16 @@ public class EyeTrack: ObservableObject {
     @Published public var info: EyeTrackInfo? = nil
 
     private var status: Status
+    private var sceneView: ARSCNView?
 
     var blinkThreshold: Float
     var smoothingRange: Int
 
     var onUpdate: () -> Void
 
-    public init(type: DeviceType, smoothingRange: Int = 1, blinkThreshold: Float = 1.0, onUpdate: @escaping () -> Void = { }) {
+    public init(type: DeviceType, smoothingRange: Int = 1, blinkThreshold: Float = 1.0, isShowRayHint: Bool = false, onUpdate: @escaping () -> Void = { }) {
         self.device = Device(type: type)
-        self.face = Face()
+        self.face = Face(isShowRayHint: isShowRayHint)
         self.smoothingRange = smoothingRange
         self.blinkThreshold = blinkThreshold
         self.onUpdate = onUpdate
@@ -49,11 +50,29 @@ public class EyeTrack: ObservableObject {
 
     // SceneViewと紐つける
     public func registerSceneView(sceneView: ARSCNView) {
+        self.sceneView = sceneView
         sceneView.scene.rootNode.addChildNode(self.face.node)
         sceneView.scene.rootNode.addChildNode(self.device.node)
         self.status = Status.STANDBY
     }
-
+    
+    public func showRayHint() {
+        self.status = Status.UNREGISTERED
+        let old_face = self.face.node
+        self.face = Face(isShowRayHint: true)
+        self.sceneView?.scene.rootNode.replaceChildNode(old_face, with: self.face.node)
+        self.status = Status.STANDBY
+    }
+    
+    public func hideRayHint() {
+        self.status = Status.UNREGISTERED
+        let old_face = self.face.node
+        self.face = Face(isShowRayHint: false)
+        self.sceneView?.scene.rootNode.replaceChildNode(old_face, with: self.face.node)
+        self.status = Status.STANDBY
+    }
+    
+    
     // ARFaceAnchorを基に情報を更新
     public func update(anchor: ARFaceAnchor) {
         // 顔座標更新(眼球座標更新)
