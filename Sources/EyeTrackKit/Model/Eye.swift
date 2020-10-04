@@ -18,8 +18,10 @@ public class Eye {
     public var node: SCNNode
     public var target: SCNNode
 
-
+    public var isShowRayHint: Bool
+    
     public init(isShowRayHint: Bool = false) {
+        self.isShowRayHint = isShowRayHint
         // Node生成
         self.node = {
             let geometry = SCNCone(topRadius: 0.005, bottomRadius: 0, height: 0.1)
@@ -39,6 +41,14 @@ public class Eye {
         self.target.position.z = 2
     }
 
+    public func showHint() {
+        self.node.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+    }
+    
+    public func hideHint() {
+        self.node.geometry?.firstMaterial?.diffuse.contents = UIColor.clear
+    }
+    
     // Deviceとの距離を取得
     public func getDistanceToDevice() -> Float {
         (self.node.worldPosition - SCNVector3Zero).length()

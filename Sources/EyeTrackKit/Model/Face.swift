@@ -18,11 +18,11 @@ public class Face {
     public var transform: simd_float4x4 = simd_float4x4()
 
 
-    public init() {
+    public init(isShowRayHint: Bool = false) {
         // Node生成
         self.node = SCNNode()
-        self.rightEye = Eye()
-        self.leftEye = Eye()
+        self.rightEye = Eye(isShowRayHint: isShowRayHint)
+        self.leftEye = Eye(isShowRayHint: isShowRayHint)
         self.node.addChildNode(self.leftEye.node)
         self.node.addChildNode(self.rightEye.node)
     }
