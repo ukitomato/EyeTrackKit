@@ -11,7 +11,7 @@ import SceneKit
 import ARVideoKit
 
 public struct EyeTrackView: UIViewRepresentable {
-    @State public var sceneView: ARSCNView = ARSCNView(frame: .zero)
+    @State public var sceneView: ARSCNView = ARSCNView(frame: UIScreen.main.bounds)
     public var eyeTrack: EyeTrack
     public var recorder: RecordAR?
     private var isHidden: Bool
