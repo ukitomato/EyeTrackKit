@@ -14,13 +14,14 @@ struct ContentView: View {
     var dataController: DataController = Resolver.resolve()
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .topLeading) {
             eyeTrackController.view
             Circle()
                 .fill(Color.blue.opacity(0.5))
                 .frame(width: 25, height: 25)
                 .position(x: eyeTrackController.eyeTrack.lookAtPoint.x, y: eyeTrackController.eyeTrack.lookAtPoint.y)
         }
+            .edgesIgnoringSafeArea(.all)
         HStack {
             Button(action: {
                 eyeTrackController.start()
