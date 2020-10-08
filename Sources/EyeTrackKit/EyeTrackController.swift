@@ -29,7 +29,7 @@ public class EyeTrackController: ObservableObject {
     }
 
     public init(type: DeviceType, smoothingRange: Int, blinkThreshold: Float, isHidden: Bool = true) {
-        eyeTrack = EyeTrack(type: .iPhone, smoothingRange: 10, blinkThreshold: 0.4)
+        eyeTrack = EyeTrack(type: .iPhone, smoothingRange: smoothingRange, blinkThreshold: blinkThreshold)
         self.isHidden = isHidden
         anyCancellable = eyeTrack.objectWillChange.sink { [weak self] (_) in
             self?.objectWillChange.send()
