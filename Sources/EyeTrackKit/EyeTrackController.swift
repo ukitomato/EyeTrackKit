@@ -19,6 +19,15 @@ public class EyeTrackController: ObservableObject {
     private var isHidden: Bool
     var anyCancellable: AnyCancellable? = nil
 
+    public var onUpdate: (EyeTrackInfo?) -> Void {
+        get {
+            return self.eyeTrack.onUpdate
+        }
+        set {
+            self.eyeTrack.onUpdate = newValue
+        }
+    }
+
     public init(type: DeviceType, smoothingRange: Int, blinkThreshold: Float, isHidden: Bool = true) {
         eyeTrack = EyeTrack(type: .iPhone, smoothingRange: 10, blinkThreshold: 0.4)
         self.isHidden = isHidden
@@ -39,15 +48,15 @@ public class EyeTrackController: ObservableObject {
     public func hide() -> Void {
         self._view?.hide()
     }
-    
+
     public func show() -> Void {
         self._view?.show()
     }
-    
+
     public func showRayHint() -> Void {
         self.eyeTrack.showRayHint()
     }
-    
+
     public func hideRayHint() -> Void {
         self.eyeTrack.hideRayHint()
     }
@@ -67,17 +76,11 @@ public class EyeTrackController: ObservableObject {
         if isVideoRecording {
             view.stopRecord(finished: finished, isExport: isExport)
         }
-
     }
 
     public func reset() -> Void {
         self.eyeTrack.frame = 0
-        self.eyeTrack.data.removeAll()
         self.eyeTrack.setStatus(status: .STANDBY)
-    }
-
-    public var data: [EyeTrackInfo] {
-        return self.eyeTrack.data
     }
 
     public var currentInfo: EyeTrackInfo? {

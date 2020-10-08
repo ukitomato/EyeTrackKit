@@ -23,7 +23,6 @@ public enum Status {
 @available(iOS 13.0, *)
 public class EyeTrack: ObservableObject {
     private var bufferLookAtPosition: [CGPoint] = []
-    @Published public var data: [EyeTrackInfo] = []
     @Published public var lookAtPosition: CGPoint = CGPoint(x: 0, y: 0)
     @Published public var lookAtPoint: CGPoint = CGPoint(x: 0, y: 0)
     @Published public var device: Device
@@ -37,15 +36,22 @@ public class EyeTrack: ObservableObject {
 
     var blinkThreshold: Float
     var smoothingRange: Int
+    var updateCallback: (EyeTrackInfo?) -> Void = { _ in }
+    
+    var onUpdate: (EyeTrackInfo?) -> Void {
+        get {
+            return self.updateCallback
+        }
+        set {
+            self.updateCallback = newValue
+        }
+    }
 
-    var onUpdate: () -> Void
-
-    public init(type: DeviceType, smoothingRange: Int = 1, blinkThreshold: Float = 1.0, isShowRayHint: Bool = false, onUpdate: @escaping () -> Void = { }) {
+    public init(type: DeviceType, smoothingRange: Int = 1, blinkThreshold: Float = 1.0, isShowRayHint: Bool = false) {
         self.device = Device(type: type)
         self.face = Face(isShowRayHint: isShowRayHint)
         self.smoothingRange = smoothingRange
         self.blinkThreshold = blinkThreshold
-        self.onUpdate = onUpdate
         self.status = Status.UNREGISTERED
         self.isShowRayHint = isShowRayHint
     }
@@ -87,7 +93,7 @@ public class EyeTrack: ObservableObject {
         } else {
             updateLookAtPosition()
         }
-        info = EyeTrackInfo(frame: frame, face: face, device: device, lookAtPoint: lookAtPoint)
+        self.info = EyeTrackInfo(frame: frame, face: face, device: device, lookAtPoint: lookAtPoint)
         // Save data
         switch status {
         case .UNINITIALIZED: break
@@ -95,14 +101,12 @@ public class EyeTrack: ObservableObject {
         case .ERROR: break
         case .STANDBY: break
         case .RECORDING:
-            data.append(info!)
             frame = frame + 1
             break
         case .RECORDED:
             break
         }
-
-        onUpdate()
+        updateCallback(info)
     }
 
     public func setStatus(status: Status) {
