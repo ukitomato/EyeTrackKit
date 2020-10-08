@@ -72,7 +72,7 @@ public class EyeTrackController: ObservableObject {
 
     public func stop(finished: @escaping (URL) -> Void = { _ in }, isExport: Bool = false) -> Void {
         self.eyeTrack.setStatus(status: .RECORDED)
-        print("Acquired \(self.eyeTrack.data.count) frames")
+        print("Acquired \(self.eyeTrack.frame) frames")
         if isVideoRecording {
             view.stopRecord(finished: finished, isExport: isExport)
         }
