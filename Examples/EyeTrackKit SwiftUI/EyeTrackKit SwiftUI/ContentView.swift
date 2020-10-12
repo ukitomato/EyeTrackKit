@@ -2,18 +2,56 @@
 //  ContentView.swift
 //  EyeTrackKit SwiftUI
 //
-//  Created by Yuki Yamato on 2020/10/13.
+//  Created by Yuki Yamato on 2020/10/01.
 //
 
 import SwiftUI
+import Resolver
+import EyeTrackKit
+
 
 struct ContentView: View {
+    @ObservedObject var eyeTrackController: EyeTrackController = Resolver.resolve()
+    @ObservedObject var dataController: DataController = Resolver.resolve()
+
+    init() {
+        let data: DataController = Resolver.resolve()
+        self.eyeTrackController.onUpdate = { info in
+            data.add(info: info!)
+        }
+    }
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack(alignment: .topLeading) {
+            self.eyeTrackController.view
+            Circle()
+                .fill(Color.blue.opacity(0.5))
+                .frame(width: 25, height: 25)
+                .position(x: eyeTrackController.eyeTrack.lookAtPoint.x, y: eyeTrackController.eyeTrack.lookAtPoint.y)
+        }
+            .edgesIgnoringSafeArea(.all)
+        HStack {
+            Button(action: {
+                self.eyeTrackController.startRecord()
+                self.dataController.start()
+            }) {
+                Text("Start")
+            }
+            Button(action: {
+                self.dataController.stop()
+                //                eyeTrackController.stop(finished: {_ in}, isExport: true) // export video to Photo Library
+                self.eyeTrackController.stopRecord(finished: { path in print("Video File Path: \(path)") }, isExport: false) // export video to Documents folder
+                self.dataController.export(name: "test.csv")
+                self.dataController.reset()
+            }) {
+                Text("Stop")
+            }
+        }
+        Text("x: \(eyeTrackController.eyeTrack.lookAtPoint.x) y: \(eyeTrackController.eyeTrack.lookAtPoint.y)")
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
+    
     static var previews: some View {
         ContentView()
     }

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ARVideoKit",
+        "repositoryURL": "https://github.com/AFathi/ARVideoKit",
+        "state": {
+          "branch": null,
+          "revision": "8eabd3193125812439ac82dc81bf99dc79886722",
+          "version": "1.6.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

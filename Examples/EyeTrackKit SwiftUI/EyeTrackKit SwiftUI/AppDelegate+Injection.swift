@@ -11,7 +11,7 @@ import EyeTrackKit
 
 extension Resolver: ResolverRegistering {
     public static func registerAllServices() {
-        register { EyeTrackController(type: .iPhone, smoothingRange: 10, blinkThreshold: 0.4, isHidden: false) }.scope(application)
+        register { EyeTrackController(type: .iPhone, smoothingRange: 10, blinkThreshold: .infinity, isHidden: false) }.scope(application)
         register { DataController() }.scope(application)
     }
 }
