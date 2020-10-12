@@ -30,8 +30,8 @@ public class EyeTrack: ObservableObject {
     @Published public var frame: Int = 0
     @Published public var info: EyeTrackInfo? = nil
     @Published public var isShowRayHint: Bool
-
-    private var status: Status
+    @Published public var status: Status
+    
     private var sceneView: ARSCNView?
 
     var blinkThreshold: Float
