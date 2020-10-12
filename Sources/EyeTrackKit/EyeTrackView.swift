@@ -9,6 +9,7 @@ import SwiftUI
 import ARKit
 import SceneKit
 import ARVideoKit
+import os
 
 public struct EyeTrackView: UIViewRepresentable {
     @State public var sceneView: ARSCNView = ARSCNView(frame: .infinite)

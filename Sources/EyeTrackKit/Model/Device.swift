@@ -10,7 +10,7 @@ import UIKit
 import SceneKit
 import ARKit
 
-public enum DeviceType {
+public enum DeviceType: String {
     case iPhone
     case iPad
 }

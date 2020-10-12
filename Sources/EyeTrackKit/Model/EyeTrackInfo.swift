@@ -14,6 +14,7 @@ public class EyeTrackInfo {
     public static let CSV_COLUMNS = ["timestamp",
                                      "faceRotaion-x", "faceRotaion-y", "faceRotaion-z", "faceRotaion-w",
                                      "facePosition-x", "facePosition-y", "facePosition-z",
+                                     "deviceRotation-x", "deviceRotation-y", "deviceRotation-z", "deviceRotation-w",
                                      "devicePosition-x", "devicePosition-y", "devicePosition-z",
                                      "rightEyePotision-x", "rightEyePotision-y", "rightEyePotision-z",
                                      "leftEyePotision-x", "leftEyePotision-y", "leftEyePotision-z",
@@ -27,9 +28,11 @@ public class EyeTrackInfo {
     public var timestamp: Date
 
     public var faceRotaion: SCNVector4
-
     public var facePosition: SCNVector3
+    
     public var devicePosition: SCNVector3
+    public var deviceRotation: SCNVector4
+    
     public var rightEyePotision: SCNVector3
     public var leftEyePotision: SCNVector3
 
@@ -52,6 +55,7 @@ public class EyeTrackInfo {
 
         self.faceRotaion = face.node.worldOrientation
         self.facePosition = face.node.worldPosition
+        self.deviceRotation = device.node.worldOrientation
         self.devicePosition = device.node.worldPosition
         self.rightEyePotision = face.rightEye.node.worldPosition
         self.leftEyePotision = face.leftEye.node.worldPosition
@@ -77,6 +81,7 @@ public class EyeTrackInfo {
         let worldPosition = [
             String(self.faceRotaion.x), String(self.faceRotaion.y), String(self.faceRotaion.z), String(self.faceRotaion.w),
             String(self.facePosition.x), String(self.facePosition.y), String(self.facePosition.z),
+            String(self.deviceRotation.x), String(self.deviceRotation.y), String(self.deviceRotation.z), String(self.deviceRotation.w),
             String(self.devicePosition.x), String(self.devicePosition.y), String(self.devicePosition.z),
             String(self.rightEyePotision.x), String(self.rightEyePotision.y), String(self.rightEyePotision.z),
             String(self.leftEyePotision.x), String(self.leftEyePotision.y), String(self.leftEyePotision.z)]

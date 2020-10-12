@@ -10,7 +10,6 @@ import SwiftUI
 import Combine
 
 
-
 @available(iOS 13.0, *)
 public class EyeTrackController: ObservableObject {
     @Published public var eyeTrack: EyeTrack
@@ -33,6 +32,8 @@ public class EyeTrackController: ObservableObject {
         anyCancellable = eyeTrack.objectWillChange.sink { [weak self] (_) in
             self?.objectWillChange.send()
         }
+        print("[EyeTrackController] EyeTrackKit was initialized for \(type.rawValue): smoothing range=\(smoothingRange)")
+        print("[EyeTrackController] EyeTrackKit was set: smoothing range=\(smoothingRange)/blink threshold=\(blinkThreshold)/is hidden=\(isHidden)")
     }
 
     public var view: EyeTrackView {
@@ -45,28 +46,34 @@ public class EyeTrackController: ObservableObject {
     }
 
     public func hide() -> Void {
+        print("[EyeTrackController] show view")
         self._view?.hide()
     }
 
     public func show() -> Void {
+        print("[EyeTrackController] hide view")
         self._view?.show()
     }
 
     public func showRayHint() -> Void {
+        print("[EyeTrackController] show raycast hint")
         self.eyeTrack.showRayHint()
     }
 
     public func hideRayHint() -> Void {
+        print("[EyeTrackController] hide raycast hint")
         self.eyeTrack.hideRayHint()
     }
 
     /// start to record data
     public func startRecord() -> Void {
+        print("[EyeTrackController] start to record scene video")
         self.view.startRecord()
     }
 
     public func stopRecord(finished: @escaping (URL) -> Void = { _ in }, isExport: Bool = false) -> Void {
         self.view.stopRecord(finished: finished, isExport: isExport)
+        print("[EyeTrackController] stop to record scene video")
     }
 
 
