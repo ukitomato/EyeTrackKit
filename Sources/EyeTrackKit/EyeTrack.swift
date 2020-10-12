@@ -11,14 +11,6 @@ import UIKit
 import SceneKit
 import ARKit
 
-public enum Status {
-    case UNINITIALIZED
-    case UNREGISTERED
-    case ERROR
-    case STANDBY
-    case RECORDING
-    case RECORDED
-}
 
 @available(iOS 13.0, *)
 public class EyeTrack: ObservableObject {
@@ -27,10 +19,8 @@ public class EyeTrack: ObservableObject {
     @Published public var lookAtPoint: CGPoint = CGPoint(x: 0, y: 0)
     @Published public var device: Device
     @Published public var face: Face
-    @Published public var frame: Int = 0
     @Published public var info: EyeTrackInfo? = nil
     @Published public var isShowRayHint: Bool
-    @Published public var status: Status
     
     private var sceneView: ARSCNView?
 
@@ -52,7 +42,6 @@ public class EyeTrack: ObservableObject {
         self.face = Face(isShowRayHint: isShowRayHint)
         self.smoothingRange = smoothingRange
         self.blinkThreshold = blinkThreshold
-        self.status = Status.UNREGISTERED
         self.isShowRayHint = isShowRayHint
     }
 
@@ -61,25 +50,20 @@ public class EyeTrack: ObservableObject {
         self.sceneView = sceneView
         sceneView.scene.rootNode.addChildNode(self.face.node)
         sceneView.scene.rootNode.addChildNode(self.device.node)
-        self.status = Status.STANDBY
     }
 
     public func showRayHint() {
-        self.status = Status.UNREGISTERED
         self.isShowRayHint = true
         let old_face = self.face.node
         self.face = Face(isShowRayHint: true)
         self.sceneView?.scene.rootNode.replaceChildNode(old_face, with: self.face.node)
-        self.status = Status.STANDBY
     }
 
     public func hideRayHint() {
-        self.status = Status.UNREGISTERED
         self.isShowRayHint = false
         let old_face = self.face.node
         self.face = Face(isShowRayHint: false)
         self.sceneView?.scene.rootNode.replaceChildNode(old_face, with: self.face.node)
-        self.status = Status.STANDBY
     }
 
 
@@ -93,25 +77,10 @@ public class EyeTrack: ObservableObject {
         } else {
             updateLookAtPosition()
         }
-        self.info = EyeTrackInfo(frame: frame, face: face, device: device, lookAtPoint: lookAtPoint)
-        // Save data
-        switch status {
-        case .UNINITIALIZED: break
-        case .UNREGISTERED: break
-        case .ERROR: break
-        case .STANDBY: break
-        case .RECORDING:
-            frame = frame + 1
-            break
-        case .RECORDED:
-            break
-        }
+        self.info = EyeTrackInfo(face: face, device: device, lookAtPoint: lookAtPoint)
         updateCallback(info)
     }
 
-    public func setStatus(status: Status) {
-        self.status = status
-    }
 
     // 視点位置更新
     public func updateLookAtPosition() {

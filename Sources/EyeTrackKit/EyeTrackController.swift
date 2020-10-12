@@ -15,7 +15,6 @@ import Combine
 public class EyeTrackController: ObservableObject {
     @Published public var eyeTrack: EyeTrack
     private var _view: EyeTrackView?
-    private var isVideoRecording: Bool = true
     private var isHidden: Bool
     var anyCancellable: AnyCancellable? = nil
 
@@ -29,7 +28,7 @@ public class EyeTrackController: ObservableObject {
     }
 
     public init(type: DeviceType, smoothingRange: Int, blinkThreshold: Float, isHidden: Bool = true) {
-        eyeTrack = EyeTrack(type: .iPhone, smoothingRange: smoothingRange, blinkThreshold: blinkThreshold)
+        self.eyeTrack = EyeTrack(type: .iPhone, smoothingRange: smoothingRange, blinkThreshold: blinkThreshold)
         self.isHidden = isHidden
         anyCancellable = eyeTrack.objectWillChange.sink { [weak self] (_) in
             self?.objectWillChange.send()
@@ -62,26 +61,14 @@ public class EyeTrackController: ObservableObject {
     }
 
     /// start to record data
-    public func start(videoRecording: Bool = true) -> Void {
-        isVideoRecording = videoRecording
-        if isVideoRecording {
-            view.startRecord()
-        }
-        self.eyeTrack.setStatus(status: .RECORDING)
+    public func startRecord() -> Void {
+        self.view.startRecord()
     }
 
-    public func stop(finished: @escaping (URL) -> Void = { _ in }, isExport: Bool = false) -> Void {
-        self.eyeTrack.setStatus(status: .RECORDED)
-        print("Acquired \(self.eyeTrack.frame) frames")
-        if isVideoRecording {
-            view.stopRecord(finished: finished, isExport: isExport)
-        }
+    public func stopRecord(finished: @escaping (URL) -> Void = { _ in }, isExport: Bool = false) -> Void {
+        self.view.stopRecord(finished: finished, isExport: isExport)
     }
 
-    public func reset() -> Void {
-        self.eyeTrack.frame = 0
-        self.eyeTrack.setStatus(status: .STANDBY)
-    }
 
     public var currentInfo: EyeTrackInfo? {
         return self.eyeTrack.info

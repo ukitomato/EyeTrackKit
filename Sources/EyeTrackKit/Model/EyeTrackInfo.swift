@@ -11,7 +11,7 @@ import ARKit
 public class EyeTrackInfo {
     private var formatter = DateFormatter()
 
-    public static let CSV_COLUMNS = ["timestamp", "frame",
+    public static let CSV_COLUMNS = ["timestamp",
                                      "faceRotaion-x", "faceRotaion-y", "faceRotaion-z", "faceRotaion-w",
                                      "facePosition-x", "facePosition-y", "facePosition-z",
                                      "devicePosition-x", "devicePosition-y", "devicePosition-z",
@@ -25,7 +25,6 @@ public class EyeTrackInfo {
                                      "rightEyeBlink", "leftEyeBlink",
                                      "rightEyeDistance", "leftEyeDistance"]
     public var timestamp: Date
-    public var frame: Int
 
     public var faceRotaion: SCNVector4
 
@@ -48,8 +47,7 @@ public class EyeTrackInfo {
     public var leftEyeDistance: Float
 
 
-    public init(frame: Int, face: Face, device: Device, lookAtPoint: CGPoint) {
-        self.frame = frame
+    public init(face: Face, device: Device, lookAtPoint: CGPoint) {
         self.timestamp = Date.init()
 
         self.faceRotaion = face.node.worldOrientation
@@ -75,7 +73,7 @@ public class EyeTrackInfo {
     }
 
     public var toCSV: [String] {
-        let detail = [dateToString(date: self.timestamp), String(self.frame)]
+        let detail = [dateToString(date: self.timestamp)]
         let worldPosition = [
             String(self.faceRotaion.x), String(self.faceRotaion.y), String(self.faceRotaion.z), String(self.faceRotaion.w),
             String(self.facePosition.x), String(self.facePosition.y), String(self.facePosition.z),

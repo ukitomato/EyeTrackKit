@@ -14,7 +14,7 @@ public struct EyeTrackView: UIViewRepresentable {
     @State public var sceneView: ARSCNView = ARSCNView(frame: .infinite)
     public var eyeTrack: EyeTrack
     public var recorder: RecordAR?
-    private var isHidden: Bool
+    public var isHidden: Bool
 
     public init(isHidden: Bool = true, eyeTrack: EyeTrack) {
         self.isHidden = isHidden
@@ -24,7 +24,6 @@ public struct EyeTrackView: UIViewRepresentable {
 
 
     public func makeUIView(context: Context) -> ARSCNView {
-        // Set the view's delegate
         self.sceneView.delegate = context.coordinator
         self.sceneView.session.delegate = context.coordinator
         self.sceneView.isHidden = self.isHidden
@@ -43,28 +42,27 @@ public struct EyeTrackView: UIViewRepresentable {
         return sceneView
     }
 
-    public func updateUIView(_ uiView: ARSCNView, context: Context) {
-    }
+    public func updateUIView(_ uiView: ARSCNView, context: Context) { }
 
     public func hide() -> Void {
         self.sceneView.isHidden = true
     }
-    
+
     public func show() -> Void {
         self.sceneView.isHidden = false
     }
-    
+
     /// Start to record SceneView content
     public func startRecord() {
-        recorder?.record()
+        self.recorder?.record()
     }
 
     /// Stop to record and Save the recorded video to Photo Library
     public func stopRecord(finished: @escaping (URL) -> Void = { _ in }, isExport: Bool = false) {
         if isExport {
-            recorder?.stopAndExport()
+            self.recorder?.stopAndExport()
         } else {
-            recorder?.stop() { path in
+            self.recorder?.stop() { path in
                 //use the file path to export or preview inside your application
                 finished(path)
             }
@@ -81,7 +79,7 @@ public struct EyeTrackView: UIViewRepresentable {
         public var recorder: RecordAR?
 
         public init (view: Binding<ARSCNView>, eyeTrack: EyeTrack, recorder: RecordAR?) {
-            _view = view
+            self._view = view
             self.eyeTrack = eyeTrack
             self.recorder = recorder
             super.init()
@@ -93,11 +91,11 @@ public struct EyeTrackView: UIViewRepresentable {
             // Pause recording
             self.recorder?.rest()
             // Pause the view's session
-            view.session.pause()
+            self.view.session.pause()
         }
 
         public func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-            eyeTrack.face.node.transform = node.transform
+            self.eyeTrack.face.node.transform = node.transform
             guard let faceAnchor = anchor as? ARFaceAnchor else {
                 return
             }
@@ -109,11 +107,11 @@ public struct EyeTrackView: UIViewRepresentable {
                 return
             }
             // Update Virtual Device position
-            eyeTrack.device.node.transform = sceneTransformInfo
+            self.eyeTrack.device.node.transform = sceneTransformInfo
         }
 
         public func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-            eyeTrack.face.node.transform = node.transform
+            self.eyeTrack.face.node.transform = node.transform
             guard let faceAnchor = anchor as? ARFaceAnchor else {
                 return
             }
