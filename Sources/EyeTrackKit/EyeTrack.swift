@@ -21,13 +21,13 @@ public class EyeTrack: ObservableObject {
     @Published public var face: Face
     @Published public var info: EyeTrackInfo? = nil
     @Published public var isShowRayHint: Bool
-    
+
     private var sceneView: ARSCNView?
 
     var blinkThreshold: Float
     var smoothingRange: Int
     var updateCallback: (EyeTrackInfo?) -> Void = { _ in }
-    
+
     var onUpdate: (EyeTrackInfo?) -> Void {
         get {
             return self.updateCallback
@@ -37,7 +37,7 @@ public class EyeTrack: ObservableObject {
         }
     }
 
-    public init(type: DeviceType, smoothingRange: Int = 1, blinkThreshold: Float = 1.0, isShowRayHint: Bool = false, device: Device) {
+    public init(device: Device, smoothingRange: Int = 1, blinkThreshold: Float = 1.0, isShowRayHint: Bool = false) {
         self.device = device
         self.face = Face(isShowRayHint: isShowRayHint)
         self.smoothingRange = smoothingRange

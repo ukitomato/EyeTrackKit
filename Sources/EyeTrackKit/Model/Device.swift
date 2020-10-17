@@ -49,16 +49,16 @@ public class Device {
         switch type {
         case DeviceType.iPhone:
             self.screenSize = CGSize(width: 0.0714, height: 0.1440)
-            self.screenPointSize = CGSize(width: 1125 / 3, height: 2436 / 3)
+            self.screenPointSize = CGSize(width: 375, height: 812)
             self.compensation = CGPoint(x: 0, y: 375)
         case DeviceType.iPad:
             self.screenSize = CGSize(width: 0.1785, height: 0.2476)
-            self.screenPointSize = CGSize(width: 1668 / 2, height: 2388 / 2)
-            self.compensation = CGPoint(x: 834, y: 0)
+            self.screenPointSize = CGSize(width: 834, height: 1194)
+            self.compensation = CGPoint(x: 0, y: 417)
         case DeviceType.iPadLandscape:
             self.screenSize = CGSize(width: 0.2476, height: 0.1785)
-            self.screenPointSize = CGSize(width: 2388 / 2, height: 1668 / 2)
-            self.compensation = CGPoint(x: 0, y: 834)
+            self.screenPointSize = CGSize(width: 1194, height: 834)
+            self.compensation = CGPoint(x: 417, y: 0)
         }
 
         // Node生成
