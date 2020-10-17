@@ -81,4 +81,14 @@ public class EyeTrackController: ObservableObject {
         return self.eyeTrack.info
     }
 
+    public func reinit(type: DeviceType, smoothingRange: Int, blinkThreshold: Float, isHidden: Bool) {
+        self.eyeTrack = EyeTrack(type: .iPhone, smoothingRange: smoothingRange, blinkThreshold: blinkThreshold)
+        self.isHidden = isHidden
+        anyCancellable = eyeTrack.objectWillChange.sink { [weak self] (_) in
+            self?.objectWillChange.send()
+        }
+        self._view = nil
+        print("[EyeTrackController] EyeTrackKit was initialized for \(type.rawValue): smoothing range=\(smoothingRange)")
+        print("[EyeTrackController] EyeTrackKit was set: smoothing range=\(smoothingRange)/blink threshold=\(blinkThreshold)/is hidden=\(isHidden)")
+    }
 }
