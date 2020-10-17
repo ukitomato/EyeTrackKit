@@ -37,8 +37,8 @@ public class EyeTrack: ObservableObject {
         }
     }
 
-    public init(type: DeviceType, smoothingRange: Int = 1, blinkThreshold: Float = 1.0, isShowRayHint: Bool = false) {
-        self.device = Device(type: type)
+    public init(type: DeviceType, smoothingRange: Int = 1, blinkThreshold: Float = 1.0, isShowRayHint: Bool = false, device: Device) {
+        self.device = device
         self.face = Face(isShowRayHint: isShowRayHint)
         self.smoothingRange = smoothingRange
         self.blinkThreshold = blinkThreshold

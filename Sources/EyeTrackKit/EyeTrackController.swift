@@ -26,8 +26,8 @@ public class EyeTrackController: ObservableObject {
         }
     }
 
-    public init(type: DeviceType, smoothingRange: Int, blinkThreshold: Float, isHidden: Bool = true) {
-        self.eyeTrack = EyeTrack(type: .iPhone, smoothingRange: smoothingRange, blinkThreshold: blinkThreshold)
+    public init(type: DeviceType, smoothingRange: Int, blinkThreshold: Float, isHidden: Bool = true, device: Device) {
+        self.eyeTrack = EyeTrack(type: .iPhone, smoothingRange: smoothingRange, blinkThreshold: blinkThreshold, device: device)
         self.isHidden = isHidden
         anyCancellable = eyeTrack.objectWillChange.sink { [weak self] (_) in
             self?.objectWillChange.send()
@@ -82,7 +82,7 @@ public class EyeTrackController: ObservableObject {
     }
 
     public func reinit(type: DeviceType, smoothingRange: Int, blinkThreshold: Float, isHidden: Bool) {
-        self.eyeTrack = EyeTrack(type: .iPhone, smoothingRange: smoothingRange, blinkThreshold: blinkThreshold)
+        self.eyeTrack = EyeTrack(type: .iPhone, smoothingRange: smoothingRange, blinkThreshold: blinkThreshold, device: Device(type: .iPhone))
         self.isHidden = isHidden
         anyCancellable = eyeTrack.objectWillChange.sink { [weak self] (_) in
             self?.objectWillChange.send()
