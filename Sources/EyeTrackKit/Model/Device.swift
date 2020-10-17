@@ -33,7 +33,7 @@ public class Device {
             self.screenPointSize = CGSize(width: 1125 / 3, height: 2436 / 3)
         case DeviceType.iPad:
             self.screenSize = CGSize(width: 0.1785, height: 0.2476)
-            self.screenPointSize = CGSize(width: 1668 / 2, height: 2388 / 2)
+            self.screenPointSize = CGSize(width: 1668 , height: 2388)
         case DeviceType.iPadLandscape:
             self.screenSize = CGSize(width: 0.2476, height: 0.1785)
             self.screenPointSize = CGSize(width: 2388 / 2, height: 1668 / 2)
