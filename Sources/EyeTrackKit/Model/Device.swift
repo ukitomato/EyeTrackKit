@@ -35,11 +35,11 @@ public class Device {
         case DeviceType.iPad:
             self.screenSize = CGSize(width: 0.1785, height: 0.2476)
             self.screenPointSize = CGSize(width: 1668 / 2, height: 2388 / 2)
-            self.compensation = CGPoint(x: 312, y: 0)
+            self.compensation = CGPoint(x: 417, y: 0)
         case DeviceType.iPadLandscape:
             self.screenSize = CGSize(width: 0.2476, height: 0.1785)
             self.screenPointSize = CGSize(width: 2388 / 2, height: 1668 / 2)
-            self.compensation = CGPoint(x: 0, y: 312)
+            self.compensation = CGPoint(x: 0, y: 417)
         }
 
         // Node生成
