@@ -25,7 +25,25 @@ public class Device {
     public var node: SCNNode
     public var screenNode: SCNNode
     public var compensation: CGPoint
-    
+
+    public init(screenSize: CGSize, screenPointSize: CGSize, compensation: CGPoint) {
+        self.type = .iPad
+        self.screenSize = screenSize
+        self.screenPointSize = screenPointSize
+        self.compensation = compensation
+        // Node生成
+        self.node = SCNNode()
+        self.screenNode = {
+            let screenGeometry = SCNPlane(width: 1, height: 1)
+            screenGeometry.firstMaterial?.isDoubleSided = true
+            screenGeometry.firstMaterial?.diffuse.contents = UIColor.green
+            let vsNode = SCNNode()
+            vsNode.geometry = screenGeometry
+            return vsNode
+        }()
+        self.node.addChildNode(self.screenNode)
+    }
+
     public init(type: DeviceType) {
         self.type = type
         switch type {
