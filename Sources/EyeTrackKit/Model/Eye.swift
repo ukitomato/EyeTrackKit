@@ -56,12 +56,10 @@ public class Eye {
 
     // [目と視点を結ぶ直線]と[デバイスのスクリーン平面]の交点を取得
     public func hittingAt(device: Device) -> CGPoint {
-        let heightCompensation: CGFloat = 312
-
         let deviceScreenEyeHitTestResults = device.node.hitTestWithSegment(from: self.target.worldPosition, to: self.node.worldPosition, options: nil)
         for result in deviceScreenEyeHitTestResults {
-            self.lookAtPosition.x = CGFloat(result.localCoordinates.x) / (device.screenSize.width / 2) * device.screenPointSize.width
-            self.lookAtPosition.y = CGFloat(result.localCoordinates.y) / (device.screenSize.height / 2) * device.screenPointSize.height + heightCompensation
+            self.lookAtPosition.x = CGFloat(result.localCoordinates.x) / (device.screenSize.width / 2) * device.screenPointSize.width + device.compensation.x
+            self.lookAtPosition.y = CGFloat(result.localCoordinates.y) / (device.screenSize.height / 2) * device.screenPointSize.height + device.compensation.y
             self.lookAtPoint = CGPoint(x: self.lookAtPosition.x + device.screenPointSize.width / 2, y: self.lookAtPosition.y + device.screenPointSize.height / 2)
         }
 
