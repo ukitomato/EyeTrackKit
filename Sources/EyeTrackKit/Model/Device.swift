@@ -18,13 +18,14 @@ public enum DeviceType: String, CaseIterable {
 
 // デバイス情報保持クラス
 public class Device {
-    public let type: DeviceType
-    public let screenSize: CGSize
-    public let screenPointSize: CGSize
+    public var type: DeviceType
+    public var screenSize: CGSize
+    public var screenPointSize: CGSize
 
     public var node: SCNNode
     public var screenNode: SCNNode
     public var compensation: CGPoint
+    
     public init(type: DeviceType) {
         self.type = type
         switch type {
