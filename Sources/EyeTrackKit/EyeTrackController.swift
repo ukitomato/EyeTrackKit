@@ -55,7 +55,7 @@ public class EyeTrackController: ObservableObject {
                 if (self.sceneView == nil) {
                     self._view = EyeTrackView(isHidden: isHidden, eyeTrack: eyeTrack)
                 } else {
-                    self._view = EyeTrackView(isHidden: isHidden, eyeTrack: eyeTrack, sceneView: sceneView)
+                    self._view = EyeTrackView(isHidden: isHidden, eyeTrack: eyeTrack, sceneView: sceneView!)
                 }
             }
             return self._view!
