@@ -23,6 +23,13 @@ public struct EyeTrackView: UIViewRepresentable {
         self.recorder = RecordAR(ARSceneKit: sceneView)
     }
 
+    public init(isHidden: Bool = true, eyeTrack: EyeTrack, sceneView: ARSCNView) {
+        self.isHidden = isHidden
+        self.eyeTrack = eyeTrack
+        self.sceneView = sceneView
+        self.recorder = RecordAR(ARSceneKit: sceneView)
+    }
+
 
     public func makeUIView(context: Context) -> ARSCNView {
         self.sceneView.delegate = context.coordinator
