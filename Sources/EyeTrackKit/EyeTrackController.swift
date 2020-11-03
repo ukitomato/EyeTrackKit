@@ -15,7 +15,7 @@ import SceneKit
 public class EyeTrackController: ObservableObject {
     @Published public var eyeTrack: EyeTrack
     private var _view: EyeTrackView?
-    private var isHidden: Bool
+    @Published public var isHidden: Bool
     private var sceneView: ARSCNView? = nil
     var anyCancellable: AnyCancellable? = nil
 
@@ -38,25 +38,10 @@ public class EyeTrackController: ObservableObject {
         print("[EyeTrackController] EyeTrackKit was set: smoothing range=\(smoothingRange)/blink threshold=\(blinkThreshold)/is hidden=\(isHidden)")
     }
 
-    public init( device: Device, smoothingRange: Int, blinkThreshold: Float, isHidden: Bool = true, sceneView: ARSCNView) {
-        self.eyeTrack = EyeTrack(device:device, smoothingRange: smoothingRange, blinkThreshold: blinkThreshold)
-        self.isHidden = isHidden
-        self.sceneView = sceneView
-        anyCancellable = eyeTrack.objectWillChange.sink { [weak self] (_) in
-            self?.objectWillChange.send()
-        }
-        print("[EyeTrackController] EyeTrackKit was initialized for \(device.type.rawValue): smoothing range=\(smoothingRange)")
-        print("[EyeTrackController] EyeTrackKit was set: smoothing range=\(smoothingRange)/blink threshold=\(blinkThreshold)/is hidden=\(isHidden)")
-    }
-
     public var view: EyeTrackView {
         get {
             if self._view == nil {
-                if (self.sceneView == nil) {
-                    self._view = EyeTrackView(isHidden: isHidden, eyeTrack: eyeTrack)
-                } else {
-                    self._view = EyeTrackView(isHidden: isHidden, eyeTrack: eyeTrack, sceneView: sceneView)
-                }
+                self._view = EyeTrackView(isHidden: isHidden, eyeTrack: eyeTrack)
             }
             return self._view!
         }

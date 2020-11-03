@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ARVideoKit",
+        "repositoryURL": "https://github.com/AFathi/ARVideoKit",
+        "state": {
+          "branch": null,
+          "revision": "8eabd3193125812439ac82dc81bf99dc79886722",
+          "version": "1.6.0"
+        }
+      },
+      {
+        "package": "EyeTrackKit",
+        "repositoryURL": "git@github.com:ukitomato/EyeTrackKit.git",
+        "state": {
+          "branch": "master",
+          "revision": "ea397ac63f942c9e906a119345fa2694a4d27796",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
