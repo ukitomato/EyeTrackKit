@@ -41,6 +41,7 @@ public class EyeTrackController: ObservableObject {
     public var view: EyeTrackView {
         get {
             if self._view == nil {
+                
                 self._view = EyeTrackView(isHidden: isHidden, eyeTrack: eyeTrack)
             }
             return self._view!
