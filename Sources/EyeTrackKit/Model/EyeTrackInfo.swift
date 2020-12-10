@@ -103,6 +103,6 @@ public class EyeTrackInfo {
     }
 
     public func dateToString(date: Date) -> String {
-        return formatter.string(from: Date())
+        return formatter.string(from: date)
     }
 }
