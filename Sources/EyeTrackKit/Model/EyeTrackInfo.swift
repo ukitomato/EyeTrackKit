@@ -11,7 +11,7 @@ import ARKit
 public class EyeTrackInfo {
     private var formatter = DateFormatter()
 
-    public static let CSV_COLUMNS = ["timestamp",
+    public static let CSV_COLUMNS = ["timestamp", "isTracked",
                                      "faceRotaion-x", "faceRotaion-y", "faceRotaion-z", "faceRotaion-w",
                                      "facePosition-x", "facePosition-y", "facePosition-z",
                                      "deviceRotation-x", "deviceRotation-y", "deviceRotation-z", "deviceRotation-w",
