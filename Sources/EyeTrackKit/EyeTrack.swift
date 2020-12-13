@@ -77,7 +77,7 @@ public class EyeTrack: ObservableObject {
         } else {
             updateLookAtPosition()
         }
-        self.info = EyeTrackInfo(face: face, device: device, lookAtPoint: lookAtPoint)
+        self.info = EyeTrackInfo(face: face, device: device, lookAtPoint: lookAtPoint, isTracked: anchor.isTracked)
         updateCallback(info)
     }
 

@@ -26,6 +26,7 @@ public class EyeTrackInfo {
                                      "rightEyeBlink", "leftEyeBlink",
                                      "rightEyeDistance", "leftEyeDistance"]
     public var timestamp: Date
+    public var isTracked: Bool
 
     public var faceRotaion: SCNVector4
     public var facePosition: SCNVector3
@@ -50,8 +51,9 @@ public class EyeTrackInfo {
     public var leftEyeDistance: Float
 
 
-    public init(face: Face, device: Device, lookAtPoint: CGPoint) {
+    public init(face: Face, device: Device, lookAtPoint: CGPoint, isTracked: Bool) {
         self.timestamp = Date.init()
+        self.isTracked = isTracked
 
         self.faceRotaion = face.node.worldOrientation
         self.facePosition = face.node.worldPosition
@@ -77,7 +79,7 @@ public class EyeTrackInfo {
     }
 
     public var toCSV: [String] {
-        let detail = [dateToString(date: self.timestamp)]
+        let detail = [dateToString(date: self.timestamp), String(self.isTracked)]
         let worldPosition = [
             String(self.faceRotaion.x), String(self.faceRotaion.y), String(self.faceRotaion.z), String(self.faceRotaion.w),
             String(self.facePosition.x), String(self.facePosition.y), String(self.facePosition.z),
