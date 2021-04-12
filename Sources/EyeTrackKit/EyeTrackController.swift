@@ -49,12 +49,12 @@ public class EyeTrackController: ObservableObject {
     }
 
     public func hide() -> Void {
-        print("[EyeTrackController] show view")
+        print("[EyeTrackController] hide view")
         self._view?.hide()
     }
 
     public func show() -> Void {
-        print("[EyeTrackController] hide view")
+        print("[EyeTrackController] show view")
         self._view?.show()
     }
 
