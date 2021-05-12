@@ -22,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B6343334264B6AC600554156 /* EyeTrackKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = EyeTrackKit; path = ../..; sourceTree = "<group>"; };
 		B6461B252534AB2E003FC04C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B64BC311252F692B0051F400 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B64BC316252F694E0051F400 /* Preview Content */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Preview Content"; sourceTree = "<group>"; };
@@ -49,6 +50,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B6343333264B6AC600554156 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B6343334264B6AC600554156 /* EyeTrackKit */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B6461B232534A295003FC04C /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -63,6 +72,7 @@
 				B6A62C0B2525B31C00579AFB /* EyeTrackKit SwiftUI */,
 				B6A62C0A2525B31C00579AFB /* Products */,
 				B6461B232534A295003FC04C /* Recovered References */,
+				B6343333264B6AC600554156 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -323,7 +333,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "codes.ukitomato.EyeTrackKit-SwiftUI";
+				PRODUCT_BUNDLE_IDENTIFIER = "studio.ukitomato.EyeTrackKit-SwiftUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -344,7 +354,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "codes.ukitomato.EyeTrackKit-SwiftUI";
+				PRODUCT_BUNDLE_IDENTIFIER = "studio.ukitomato.EyeTrackKit-SwiftUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -10,7 +10,7 @@ import SwiftUI
 import UIKit
 import SceneKit
 import ARKit
-
+import os
 
 @available(iOS 13.0, *)
 public class EyeTrack: ObservableObject {
@@ -27,6 +27,9 @@ public class EyeTrack: ObservableObject {
     var blinkThreshold: Float
     var smoothingRange: Int
     var updateCallback: (EyeTrackInfo?) -> Void = { _ in }
+    var _updateFrame: (CVPixelBuffer?) -> Void = { _ in }
+
+    var logger: Logger = Logger(subsystem: "dev.ukitomato.EyeTrackKit", category: "EyeTrack")
 
     var onUpdate: (EyeTrackInfo?) -> Void {
         get {
@@ -34,6 +37,15 @@ public class EyeTrack: ObservableObject {
         }
         set {
             self.updateCallback = newValue
+        }
+    }
+
+    var onUpdateFrame: (CVPixelBuffer?) -> Void {
+        get {
+            return self._updateFrame
+        }
+        set {
+            self._updateFrame = newValue
         }
     }
 
@@ -53,6 +65,7 @@ public class EyeTrack: ObservableObject {
     }
 
     public func showRayHint() {
+        logger.debug("show raycast hint")
         self.isShowRayHint = true
         let old_face = self.face.node
         self.face = Face(isShowRayHint: true)
@@ -60,6 +73,7 @@ public class EyeTrack: ObservableObject {
     }
 
     public func hideRayHint() {
+        logger.debug("hide raycast hint")
         self.isShowRayHint = false
         let old_face = self.face.node
         self.face = Face(isShowRayHint: false)
@@ -73,7 +87,7 @@ public class EyeTrack: ObservableObject {
         self.face.update(anchor: anchor)
         // 瞬き判定
         if self.face.leftEye.blink > blinkThreshold {
-            print("Close")
+            logger.debug("Close")
         } else {
             updateLookAtPosition()
         }
@@ -81,6 +95,9 @@ public class EyeTrack: ObservableObject {
         updateCallback(info)
     }
 
+    public func updateFrame(pixelBuffer: CVPixelBuffer) {
+        self._updateFrame(pixelBuffer)
+    }
 
     // 視点位置更新
     public func updateLookAtPosition() {

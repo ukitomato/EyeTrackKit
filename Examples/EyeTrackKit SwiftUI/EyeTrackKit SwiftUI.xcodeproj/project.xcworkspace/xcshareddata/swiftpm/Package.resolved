@@ -24,7 +24,7 @@
         "repositoryURL": "git@github.com:ukitomato/EyeTrackKit.git",
         "state": {
           "branch": "master",
-          "revision": "16e92c37865fbc12d6b2b5e69dcfde2d7f2789da",
+          "revision": "d40b9f3b12c512286c8a61108f16b4cded953ce0",
           "version": null
         }
       },
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/hmlongco/Resolver",
         "state": {
           "branch": null,
-          "revision": "cb5b4e1e60046120de87fee14af257e07ad74a62",
-          "version": "1.1.4"
+          "revision": "c15dcb6a826fd8ce2a36930e676ff9e888232fc9",
+          "version": "1.2.1"
         }
       }
     ]

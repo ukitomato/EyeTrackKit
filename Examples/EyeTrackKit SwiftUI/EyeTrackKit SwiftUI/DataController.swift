@@ -66,6 +66,37 @@ public class DataController: ObservableObject {
         self.status = .INITIALIZED
     }
 
+    public static func convertToUIImage(_ pixelBuffer: CVPixelBuffer) -> UIImage? {
+        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+        let imageRect = CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))
+        guard let image = CIContext().createCGImage(ciImage, from: imageRect) else { return nil }
+        return UIImage(cgImage: image)
+    }
 
+    public static func getDocumentsURL() -> NSURL {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0] as NSURL
+        return documentsURL
+    }
 
+    public static func createFilePath(filename: String) -> String {
+        let fileURL = getDocumentsURL().appendingPathComponent(filename)
+        return fileURL!.path
+    }
+
+    public static func saveImage (image: UIImage, path: String) -> Bool {
+        let jpgImageData = image.jpegData(compressionQuality: 0.9)
+        do {
+            try jpgImageData!.write(to: URL(fileURLWithPath: path), options: .atomic)
+        } catch {
+            print(error)
+            return false
+        }
+        return true
+    }
+
+    public static func dateToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMddHHmmssSSSSS"
+        return formatter.string(from: Date())
+    }
 }

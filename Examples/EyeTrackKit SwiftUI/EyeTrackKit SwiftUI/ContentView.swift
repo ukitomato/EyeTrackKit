@@ -19,10 +19,26 @@ struct ContentView: View {
         self.eyeTrackController.onUpdate = { info in
             data.add(info: info!)
         }
+
+        self.eyeTrackController.onUpdateFrame = { buffer in
+            if buffer != nil {
+                DispatchQueue.global(qos: .userInitiated).async {
+                    let image = DataController.convertToUIImage(buffer!)
+                    _ = DataController.saveImage(image: image!, path: DataController.createFilePath(filename: "\(DataController.dateToString(date: Date.init())).jpg"))
+                }
+            }
+        }
     }
+
     var body: some View {
         ZStack(alignment: .topLeading) {
             self.eyeTrackController.view
+                .onAppear {
+                self.eyeTrackController.start()
+            }
+                .onDisappear {
+                self.eyeTrackController.pause()
+            }
             Circle()
                 .fill(Color.blue.opacity(0.5))
                 .frame(width: 25, height: 25)
@@ -51,7 +67,7 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    
+
     static var previews: some View {
         ContentView()
     }
